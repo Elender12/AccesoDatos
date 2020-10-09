@@ -7,6 +7,7 @@ public class Train {
 	private String arrivalStation;
 	private Carriage carriages;
 	
+	
 	//constructors
 	public Train() {
 		
@@ -63,8 +64,8 @@ public class Train {
 
 	@Override
 	public String toString() {
-		return "Train [number=" + number + ", departureTime=" + departureTime + ", departureStation=" + departureStation
-				+ ", arrivalStation=" + arrivalStation + "]";
+		return "Train " + number + " departures at " + departureTime + "h. from " + departureStation
+				+ " station and arrives to " + arrivalStation+".";
 	}
 	
 	

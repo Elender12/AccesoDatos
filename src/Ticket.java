@@ -4,13 +4,23 @@ public class Ticket {
 	//attributes
 	private int id;
 	private LocalDate date;
-	private Train train;
-	private Carriage carriage;
-	private String seat;
+	private int trainNum;;
+	private int carriageNum;
+	private int seat;
 	private float price;
 	//constructor
 	public Ticket() {
 
+	}
+	
+
+	public Ticket(int id, LocalDate date, int trainNum, int carriageNum, int seat) {
+		this.id = id;
+		this.date = date;
+		this.trainNum = trainNum;
+		this.carriageNum = carriageNum;
+		this.seat = seat;
+		this.price = generatePrice();
 	}
 	public int getId() {
 		return id;
@@ -18,37 +28,64 @@ public class Ticket {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public LocalDate getDate() {
+	
+public LocalDate getDate() {
 		return date;
 	}
+	
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	public Train getTrain() {
-		return train;
+
+	public int getTrainNum() {
+		return trainNum;
 	}
-	public void setTrain(Train train) {
-		this.train = train;
+
+
+	public void setTrainNum(int trainNum) {
+		this.trainNum = trainNum;
 	}
-	public Carriage getCarriage() {
-		return carriage;
+
+
+	public int getCarriageNum() {
+		return carriageNum;
 	}
-	public void setCarriage(Carriage carriage) {
-		this.carriage = carriage;
+
+
+	public void setCarriageNum(int carriageNum) {
+		this.carriageNum = carriageNum;
 	}
-	public String getSeat() {
+
+
+	public int getSeat() {
 		return seat;
 	}
-	public void setSeat(String seat) {
+
+
+	public void setSeat(int seat) {
 		this.seat = seat;
 	}
+
+
 	public float getPrice() {
 		return price;
 	}
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	public float generatePrice() {
+		float ticketPrice = (float) (Math.random() * 50 + 1);
+		return ticketPrice;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Ticket [id=" + id + ", date=" + date + ", trainNum=" + trainNum + ", carriageNum=" + carriageNum
+				+ ", seat=" + seat + ", price=" + price + "]";
+	}
 	
+
 	
 	
 
