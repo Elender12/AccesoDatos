@@ -33,14 +33,14 @@ public class Carriage {
 		for ( Integer seat : this.seats.keySet()) {
 			if(this.seats.get(seat) == -1) {
 				this.seats.put(seat, generateId());
-				System.out.println("key: "+seat+" "+this.seats.get(seat));
+				//System.out.println("key: "+seat+" "+this.seats.get(seat));
 				ticketData[0]= seat;
 				ticketData[1]= this.seats.get(seat);
 				break;
 			}
 		
 		}
-		System.out.println("from carriage:::"+ticketData[0]+" "+ticketData[1]);
+		//System.out.println("from carriage:::"+ticketData[0]+" "+ticketData[1]);
 		return ticketData;	
 	}
 	public int generateId() {
