@@ -17,9 +17,9 @@ precio) Cada billete lleva su precio y su número identificador.
 libre que serán los primeros en ser ofertados en la siguiente venta para la fecha
 correspondiente. Los billetes se guardan en una list o set.
 * Los billetes podrán ser ordenada por diferentes criterios:
-o número de billete: datos de billetes (de billetes)
-o fecha, tren, vagón y asiento: (este puede salir del mapa con clave la fecha y valor
+* número de billete: datos de billetes (de billetes)
+* fecha, tren, vagón y asiento: (este puede salir del mapa con clave la fecha y valor
 que puede ser el billete).
-o tren, fecha, vagón : asientos vendidos (de billetes)
+* tren, fecha, vagón : asientos vendidos (de billetes)
 * El menú del programa tiene venta de billetes, anulación de billetes y listados por las tres
 opciones anteriores.
