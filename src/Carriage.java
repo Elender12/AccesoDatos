@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 
 public class Carriage {
-	private final int SEATS_NUM = 3;
+	private final int SEATS_NUM = 2;
 	private int number;
 	private HashMap<Integer, Integer> seats;
 
@@ -32,6 +32,7 @@ public class Carriage {
 	public int[] occupySeat() {
 		int ticketData[] = new int[2];
 		for ( Integer seat : this.seats.keySet()) {
+			System.out.println("ticket id is:::"+this.seats.get(seat));
 			if(this.seats.get(seat) == -1) {
 				this.seats.put(seat, generateId());
 				System.out.println("seat is: "+seat);
@@ -60,4 +61,5 @@ public class Carriage {
 		int id = (int) (Math.random() * 200 +1);
 		return id;
 	}
+
 }

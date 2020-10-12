@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Train {
 	//attributes
@@ -5,7 +6,7 @@ public class Train {
 	private String departureTime;
 	private String departureStation;
 	private String arrivalStation;
-	private Carriage carriages;
+	private ArrayList<Carriage> carriages;
 	
 	
 	//constructors
@@ -18,7 +19,9 @@ public class Train {
 		this.departureTime = departureTime;
 		this.departureStation = departureStation;
 		this.arrivalStation = arrivalStation;
-		this.carriages = new Carriage();
+		this.carriages = new ArrayList<Carriage>();
+		this.carriages.add(new Carriage());
+		
 	}
 
 	//getters and setters
@@ -30,35 +33,12 @@ public class Train {
 		this.number = number;
 	}
 
-	public String getDepartureTime() {
-		return departureTime;
-	}
 
-	public void setDepartureTime(String departureTime) {
-		this.departureTime = departureTime;
-	}
-
-	public String getDepartureStation() {
-		return departureStation;
-	}
-
-	public void setDepartureStation(String departureStation) {
-		this.departureStation = departureStation;
-	}
-
-	public String getArrivalStation() {
-		return arrivalStation;
-	}
-
-	public void setArrivalStation(String arrivalStation) {
-		this.arrivalStation = arrivalStation;
-	}
-
-	public Carriage getCarriages() {
+	public ArrayList<Carriage> getCarriages() {
 		return carriages;
 	}
 
-	public void setCarriages(Carriage carriages) {
+	public void setCarriages(ArrayList<Carriage> carriages) {
 		this.carriages = carriages;
 	}
 

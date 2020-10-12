@@ -20,13 +20,6 @@ public class TicketsSale {
 	
 		ArrayList<Ticket> ticketsList = new ArrayList<Ticket>();
 		
-		ArrayList<Train> dailyTrains = new ArrayList<Train>();
-		
-		//initialize all carriages
-//		trainAVE.getCarriages().initializeCarriage();
-//		trainRegional.getCarriages().initializeCarriage();
-//		trainSuper.getCarriages().initializeCarriage();
-		
 		//general list of trains
 		ArrayList<Train> trains = new ArrayList<Train>();
 		trains.add(trainAVE);
@@ -38,14 +31,14 @@ public class TicketsSale {
 		System.out.println("2. Return a ticket.");
 		System.out.println("3. Order tickets.");
 		int option = Leer.pedirEntero("Choose a option, please: ");
+		//ask for date
+		int day;
+		int month;
+		int year;
+		LocalDate ticketDate = null;
 		do {
 			switch(option) {
 			case 1:
-				//ask for date
-				int day;
-				int month;
-				int year;
-				LocalDate ticketDate = null;
 				try {
 					day = Leer.pedirEntero("Insert the day: ");
 					month= Leer.pedirEntero("Insert the month: ");
@@ -55,7 +48,6 @@ public class TicketsSale {
 					System.out.println("Incorrect date.");
 					ticketDate= LocalDate.now();
 				}
-			
 				//show trains
 			
 				//ask for train
@@ -72,26 +64,46 @@ public class TicketsSale {
 					System.out.println(date+" "+timeTable.get(date));
 				}
 				//generate the ticket
-				int [] ticketData = trains.get(numTrain-1).getCarriages().occupySeat();
+				ArrayList<Carriage> carriages = trains.get(numTrain-1).getCarriages();
+				carriages.get(carriages.size()-1);
+				int [] ticketData =  trains.get(numTrain-1).getCarriages().get(carriages.size()-1).occupySeat();
 				Ticket ticket = new Ticket(ticketData[1], ticketDate, trains.get(numTrain-1).getNumber(), 
-						trains.get(numTrain-1).getCarriages().getNumber(), ticketData[0]);
-		
+						carriages.get(carriages.size()-1).getNumber(), ticketData[0]);
 				ticketsList.add(ticket);
-//				for (LocalDate i : timeTable.keySet()) {
-//					System.out.println(i+" "+timeTable.get(i));
-//				}
 				showTickets(ticketsList);
 				break;
 			case 2:
-				//ask for the date
 				//look for the ticket and delete it
+				Ticket ticketToDelete = new Ticket();
+				int ticketId = Leer.pedirEntero("Insert ticket number");
+				for (int i = 0; i < ticketsList.size(); i++) {
+					if(ticketsList.get(i).getId() == ticketId) {
+						ticketToDelete= ticketsList.get(i);
+					}
+				}
+				ArrayList <Train> dateTrainList= timeTable.get(ticketToDelete.getDate());
+				Train currentTrain = new Train();
+				boolean deleted = false;
+				for (int i = 0; i < dateTrainList.size(); i++) {
+					if(dateTrainList.get(i).getNumber() == ticketToDelete.getTrainNum()) {
+						 deleted = ticketToDelete.deleteTicket(dateTrainList.get(i), ticketToDelete.getCarriageNum());
+					}
+				}
+				if(deleted) {
+					ticketsList.remove(ticketToDelete);
+					System.out.println("Your ticket was deleted");
+				}else {
+					System.out.println("Something went wrong.");
+				}
+				
 				//confirm
+				showTickets(ticketsList);
 				break;
 			case 3:
 				//show options to sort
-				//o número de billete: datos de billetes (de billetes) o fecha, tren, vagón y asiento: 
+				// número de billete: datos de billetes (de billetes) o fecha, tren, vagón y asiento: 
 				//(este puede salir del mapa con clave la fecha y valor que puede ser el billete).
-				//o tren, fecha, vagón : asientos vendidos (de billetes)
+				//tren, fecha, vagón : asientos vendidos (de billetes)
 				//ask for the options
 				//show the sorted tickets
 				break;

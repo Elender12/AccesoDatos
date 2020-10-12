@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Ticket {
 	//attributes
@@ -77,7 +79,29 @@ public LocalDate getDate() {
 		float ticketPrice = (float) (Math.random() * 50 + 1);
 		return ticketPrice;
 	}
+	
+	public boolean deleteTicket(Train train, int carriageNum) {
+		ArrayList<Carriage> carriages = train.getCarriages();
+		for (int i = 0; i < carriages.size(); i++) {
+			System.out.println(carriages.get(i).getNumber());
+		}
+		Carriage currentCarriage = carriages.get(carriageNum-1);
+		HashMap<Integer, Integer> seats = currentCarriage.getSeats();
 
+		if(currentCarriage.getNumber() == carriageNum) {
+			for ( Integer seat : seats.keySet()) {
+				if(seats.get(seat) == this.id && seat == this.seat) {
+					//seats.put(seat, -1);
+					train.getCarriages().get(carriageNum-1).getSeats().put(seat, -1);
+					break;
+				}
+			
+			}
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	@Override
 	public String toString() {
