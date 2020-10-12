@@ -2,16 +2,17 @@ import java.util.HashMap;
 
 
 public class Carriage {
-	private final int SEATS_NUM = 10;
+	private final int SEATS_NUM = 3;
 	private int number;
 	private HashMap<Integer, Integer> seats;
 
-	public Carriage(int number) {
-		this.number = number;
+	public Carriage() {
+		this.number = 0;
 		this.seats = new HashMap<Integer, Integer>();
-		
+		initializeCarriage();
 	}
 	public void initializeCarriage() {
+		this.number += 1;
 		for (int i = 0; i < SEATS_NUM; i++) {
 			this.seats.put(i+1, -1);
 		}
@@ -33,14 +34,26 @@ public class Carriage {
 		for ( Integer seat : this.seats.keySet()) {
 			if(this.seats.get(seat) == -1) {
 				this.seats.put(seat, generateId());
-				//System.out.println("key: "+seat+" "+this.seats.get(seat));
+				System.out.println("seat is: "+seat);
 				ticketData[0]= seat;
 				ticketData[1]= this.seats.get(seat);
 				break;
 			}
 		
 		}
-		//System.out.println("from carriage:::"+ticketData[0]+" "+ticketData[1]);
+		if(ticketData[0] == 0) {
+			System.out.println("is 0 !!");
+			initializeCarriage();
+			for ( Integer seat1 : this.seats.keySet()) {
+				if(this.seats.get(seat1) == -1) {
+					this.seats.put(1, generateId());
+					System.out.println("seat is: "+seat1);
+					ticketData[0]= seat1;
+					ticketData[1]= this.seats.get(seat1);
+					break;
+				}
+			}
+		}
 		return ticketData;	
 	}
 	public int generateId() {

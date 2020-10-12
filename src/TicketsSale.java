@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +23,9 @@ public class TicketsSale {
 		ArrayList<Train> dailyTrains = new ArrayList<Train>();
 		
 		//initialize all carriages
-		trainAVE.getCarriages().initializeCarriage();
-		trainRegional.getCarriages().initializeCarriage();
-		trainSuper.getCarriages().initializeCarriage();
+//		trainAVE.getCarriages().initializeCarriage();
+//		trainRegional.getCarriages().initializeCarriage();
+//		trainSuper.getCarriages().initializeCarriage();
 		
 		//general list of trains
 		ArrayList<Train> trains = new ArrayList<Train>();
@@ -41,44 +42,34 @@ public class TicketsSale {
 			switch(option) {
 			case 1:
 				//ask for date
-				int day = Leer.pedirEntero("Insert the day: ");
-				int month= Leer.pedirEntero("Insert the month: ");
-				int year = Leer.pedirEntero("Insert the year: ");
-				LocalDate ticketDate = LocalDate.of(year, month, day); 
+				int day;
+				int month;
+				int year;
+				LocalDate ticketDate = null;
+				try {
+					day = Leer.pedirEntero("Insert the day: ");
+					month= Leer.pedirEntero("Insert the month: ");
+					year = Leer.pedirEntero("Insert the year: ");
+					ticketDate = LocalDate.of(year, month, day); 
+				}catch(DateTimeException dt ) {
+					System.out.println("Incorrect date.");
+					ticketDate= LocalDate.now();
+				}
+			
 				//show trains
 			
 				//ask for train
 				int numTrain = Leer.pedirEntero("Insert the number of the train: ");
-				if(timeTable.get(ticketDate) != null) {
-					System.out.println("bitch exists");
-				}else {
+				if(timeTable.get(ticketDate) == null) {
 					timeTable.put(ticketDate, new ArrayList<Train>());
-					System.out.println("new bitch");
 				}
-		
 				Train auxTrain = trains.get(numTrain-1);
 				for (LocalDate date : timeTable.keySet()) {
-					System.out.println(date);
-					//the date already exists
-					if(date.equals(ticketDate) && timeTable.get(date).contains(auxTrain)) {
-						System.out.println("nada");
-					}
-					else if(date.equals(ticketDate) && !timeTable.get(date).contains(auxTrain)){
-						//dailyTrains = new ArrayList<Train>();
-						//dailyTrains.add(trains.get(numTrain-1));
+					if(date.equals(ticketDate) && !timeTable.get(date).contains(auxTrain)){
 						timeTable.get(date).add(trains.get(numTrain-1));
-						//timeTable.put(ticketDate, dailyTrains);
-						System.out.println("contains is true");
-					}else{
-						//dailyTrains.add(trains.get(numTrain-1));
-						//timeTable.put(ticketDate, dailyTrains);
-						//timeTable.get(date).add(trains.get(numTrain-1));
-						System.out.println("not there");
 					}
-					
 					System.out.println(date+" "+timeTable.get(date));
 				}
-				//dailyTrains= new ArrayList<Train>();
 				//generate the ticket
 				int [] ticketData = trains.get(numTrain-1).getCarriages().occupySeat();
 				Ticket ticket = new Ticket(ticketData[1], ticketDate, trains.get(numTrain-1).getNumber(), 
@@ -88,7 +79,7 @@ public class TicketsSale {
 //				for (LocalDate i : timeTable.keySet()) {
 //					System.out.println(i+" "+timeTable.get(i));
 //				}
-				//showTickets(ticketsList);
+				showTickets(ticketsList);
 				break;
 			case 2:
 				//ask for the date
@@ -97,6 +88,9 @@ public class TicketsSale {
 				break;
 			case 3:
 				//show options to sort
+				//o número de billete: datos de billetes (de billetes) o fecha, tren, vagón y asiento: 
+				//(este puede salir del mapa con clave la fecha y valor que puede ser el billete).
+				//o tren, fecha, vagón : asientos vendidos (de billetes)
 				//ask for the options
 				//show the sorted tickets
 				break;

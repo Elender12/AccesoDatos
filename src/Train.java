@@ -18,7 +18,7 @@ public class Train {
 		this.departureTime = departureTime;
 		this.departureStation = departureStation;
 		this.arrivalStation = arrivalStation;
-		this.carriages = new Carriage(1);
+		this.carriages = new Carriage();
 	}
 
 	//getters and setters
