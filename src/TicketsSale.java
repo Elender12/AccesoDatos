@@ -68,6 +68,7 @@ public class TicketsSale {
 					if(date.equals(ticketDate) && !timeTable.get(date).contains(auxTrain)){
 						timeTable.get(date).add(trains.get(numTrain-1));
 					}
+					
 					System.out.println(date+" "+timeTable.get(date));
 				}
 				//generate the ticket
