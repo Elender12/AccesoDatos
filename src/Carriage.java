@@ -7,12 +7,14 @@ public class Carriage {
 	private HashMap<Integer, Integer> seats;
 
 	public Carriage() {
-		this.number = 0;
+		this.number = 1;
 		this.seats = new HashMap<Integer, Integer>();
-		initializeCarriage();
+		for (int i = 0; i < SEATS_NUM; i++) {
+			this.seats.put(i+1, -1);
+		}
 	}
-	public void initializeCarriage() {
-		this.number += 1;
+	public void initializeCarriage(int oldNumber) {
+		this.number= oldNumber+1;
 		for (int i = 0; i < SEATS_NUM; i++) {
 			this.seats.put(i+1, -1);
 		}
@@ -29,37 +31,16 @@ public class Carriage {
 	public void setSeats(HashMap<Integer, Integer> seats) {
 		this.seats = seats;
 	}
-	public int[] occupySeat() {
-		int ticketData[] = new int[2];
-		for ( Integer seat : this.seats.keySet()) {
-			System.out.println("ticket id is:::"+this.seats.get(seat));
-			if(this.seats.get(seat) == -1) {
-				this.seats.put(seat, generateId());
-				System.out.println("seat is: "+seat);
-				ticketData[0]= seat;
-				ticketData[1]= this.seats.get(seat);
-				break;
-			}
-		
+	public void showSeats() {
+		for (Integer key: this.seats.keySet()) {
+			System.out.println("seat-key: "+key+" id: "+this.seats.get(key));
 		}
-		if(ticketData[0] == 0) {
-			System.out.println("is 0 !!");
-			initializeCarriage();
-			for ( Integer seat1 : this.seats.keySet()) {
-				if(this.seats.get(seat1) == -1) {
-					this.seats.put(1, generateId());
-					System.out.println("seat is: "+seat1);
-					ticketData[0]= seat1;
-					ticketData[1]= this.seats.get(seat1);
-					break;
-				}
-			}
-		}
-		return ticketData;	
 	}
-	public int generateId() {
-		int id = (int) (Math.random() * 200 +1);
-		return id;
+	@Override
+	public String toString() {
+		return "Carriage [SEATS_NUM=" + SEATS_NUM + ", number=" + number + ", seats=" + seats + "]";
 	}
 
+	
+	
 }

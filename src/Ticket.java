@@ -81,10 +81,8 @@ public LocalDate getDate() {
 	}
 	
 	public boolean deleteTicket(Train train, int carriageNum) {
+		System.out.println("carriage num as param"+carriageNum);
 		ArrayList<Carriage> carriages = train.getCarriages();
-		for (int i = 0; i < carriages.size(); i++) {
-			System.out.println(carriages.get(i).getNumber());
-		}
 		Carriage currentCarriage = carriages.get(carriageNum-1);
 		HashMap<Integer, Integer> seats = currentCarriage.getSeats();
 
@@ -92,11 +90,14 @@ public LocalDate getDate() {
 			for ( Integer seat : seats.keySet()) {
 				if(seats.get(seat) == this.id && seat == this.seat) {
 					//seats.put(seat, -1);
+					System.out.println("show seats from delete");
+					train.getCarriages().get(carriageNum-1).showSeats();
 					train.getCarriages().get(carriageNum-1).getSeats().put(seat, -1);
 					break;
 				}
-			
 			}
+			train.getCarriages().get(carriageNum-1).showSeats();
+			
 			return true;
 		}else {
 			return false;

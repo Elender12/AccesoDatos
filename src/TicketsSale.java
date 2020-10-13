@@ -63,12 +63,15 @@ public class TicketsSale {
 					
 					System.out.println(date+" "+timeTable.get(date));
 				}
+				//check if the date is already saved, if not, new train???
 				//generate the ticket
 				ArrayList<Carriage> carriages = trains.get(numTrain-1).getCarriages();
-				carriages.get(carriages.size()-1);
-				int [] ticketData =  trains.get(numTrain-1).getCarriages().get(carriages.size()-1).occupySeat();
+				System.out.println("I have " + carriages.size() + " carriages");
+				System.out.println("carriage number is:::"+carriages.get(carriages.size()-1).getNumber());
+				int [] ticketData =  trains.get(numTrain-1).occupySeat();
+				//TIENE QUE COGER EL TREN DEL HASHMAP CON DÍA-TRENES
 				Ticket ticket = new Ticket(ticketData[1], ticketDate, trains.get(numTrain-1).getNumber(), 
-						carriages.get(carriages.size()-1).getNumber(), ticketData[0]);
+						ticketData[2], ticketData[0]);
 				ticketsList.add(ticket);
 				showTickets(ticketsList);
 				break;
@@ -82,7 +85,6 @@ public class TicketsSale {
 					}
 				}
 				ArrayList <Train> dateTrainList= timeTable.get(ticketToDelete.getDate());
-				Train currentTrain = new Train();
 				boolean deleted = false;
 				for (int i = 0; i < dateTrainList.size(); i++) {
 					if(dateTrainList.get(i).getNumber() == ticketToDelete.getTrainNum()) {
