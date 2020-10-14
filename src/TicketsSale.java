@@ -1,19 +1,18 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class TicketsSale {
 
 	public static void main(String[] args) {
-		// para comprar billetes se debe utilizar un hashmap
-		//hash map con día y trenes
-		//meter billete vendido en el hash y en un arraylist (comparator)
-		
+
 		//create trains
-		Train trainAVE = new Train(1,"08:00","Delicias","Atocha");
-		Train trainRegional = new Train(2,"09:00","Delicias","Barcelona-Saints");
-		Train trainSuper = new Train(3,"10:00","Delicias","Salamanca-Todos");
+		Train trainAVE = new Train(23,"08:00","Delicias","Atocha");
+		Train trainRegional = new Train(12,"09:00","Delicias","Barcelona-Saints");
+		Train trainSuper = new Train(30,"10:00","Delicias","Salamanca-Todos");
 		
 		//stores the date with its trains
 		HashMap<LocalDate, ArrayList<Train>> timeTable = new HashMap<LocalDate, ArrayList<Train>>(); 
@@ -49,31 +48,32 @@ public class TicketsSale {
 					ticketDate= LocalDate.now();
 				}
 				//show trains
-			
+				for (Train train : trains) {
+					System.out.println(train.toString());
+				}
 				//ask for train
 				int numTrain = Leer.pedirEntero("Insert the number of the train: ");
+				Train auxTrain  = new Train();
+				for (int i = 0; i < trains.size(); i++) {
+					if(trains.get(i).getNumber() == numTrain) {
+						auxTrain = trains.get(i);
+					}
+				}
 				if(timeTable.get(ticketDate) == null) {
 					timeTable.put(ticketDate, new ArrayList<Train>());
 				}
-				Train auxTrain = trains.get(numTrain-1);
 				for (LocalDate date : timeTable.keySet()) {
 					if(date.equals(ticketDate) && !timeTable.get(date).contains(auxTrain)){
-						timeTable.get(date).add(trains.get(numTrain-1));
+						timeTable.get(date).add(auxTrain);
 					}
-					
 					System.out.println(date+" "+timeTable.get(date));
 				}
-				//check if the date is already saved, if not, new train???
 				//generate the ticket
-				ArrayList<Carriage> carriages = trains.get(numTrain-1).getCarriages();
-				System.out.println("I have " + carriages.size() + " carriages");
-				System.out.println("carriage number is:::"+carriages.get(carriages.size()-1).getNumber());
-				int [] ticketData =  trains.get(numTrain-1).occupySeat();
-				//TIENE QUE COGER EL TREN DEL HASHMAP CON DÍA-TRENES
-				Ticket ticket = new Ticket(ticketData[1], ticketDate, trains.get(numTrain-1).getNumber(), 
+				int [] ticketData =   auxTrain.occupySeat();
+				Ticket ticket = new Ticket(ticketData[1], ticketDate, auxTrain.getNumber(), 
 						ticketData[2], ticketData[0]);
 				ticketsList.add(ticket);
-				showTickets(ticketsList);
+				//showTickets(ticketsList);
 				break;
 			case 2:
 				//look for the ticket and delete it
@@ -99,13 +99,18 @@ public class TicketsSale {
 				}
 				
 				//confirm
-				showTickets(ticketsList);
+				//showTickets(ticketsList);
 				break;
 			case 3:
 				//show options to sort
-				// número de billete: datos de billetes (de billetes) o fecha, tren, vagón y asiento: 
-				//(este puede salir del mapa con clave la fecha y valor que puede ser el billete).
-				//tren, fecha, vagón : asientos vendidos (de billetes)
+				Collections.sort(ticketsList, new CompareTicketById());
+				for (Ticket item : ticketsList) {
+					System.out.println(item.toString());
+				}
+				Collections.sort(ticketsList, new CompareByDate());
+				for (Ticket item : ticketsList) {
+					System.out.println(item.toString());
+				}
 				//ask for the options
 				//show the sorted tickets
 				break;

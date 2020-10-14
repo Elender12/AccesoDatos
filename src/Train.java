@@ -47,27 +47,20 @@ public class Train {
 		int ticketData[] = new int[3];
 		boolean occupied = false;
 		for (Carriage currentCarriage : carriages) {
-			System.out.println("Voy a mirar carriage: " + currentCarriage.toString());
 			for (Integer seat : currentCarriage.getSeats().keySet()) {
-				System.out.println(
-						"estoy mirando el asiento:::" + seat + " con id: " + currentCarriage.getSeats().get(seat));
 				if (currentCarriage.getSeats().get(seat).intValue() == -1) {
-					System.out.println("LIBRE");
 					currentCarriage.getSeats().put(seat, generateId());
 					ticketData[0] = seat;
 					ticketData[1] = currentCarriage.getSeats().get(seat);
 					ticketData[2]= currentCarriage.getNumber();
-					System.out.println("ticketData asiento " + ticketData[0] + " id:" + ticketData[1]);
 					occupied = true;
 					break;
 				}
 			}
-			System.out.println("valor de occupied: " + occupied);
 			if (occupied)
 				break;
 		}
 			if (ticketData[0] == 0){
-				System.out.println("deberia entrar aqui SOLO SI no encontró nada arriba");
 				Carriage aux = new Carriage();
 				aux.initializeCarriage(this.carriages.get(this.carriages.size()-1).getNumber());
 				this.carriages.add(aux);
@@ -75,15 +68,16 @@ public class Train {
 				for ( Integer seat1 : aux.getSeats().keySet()) {
 					if(curCarriage.getSeats().get(seat1) == -1) {
 						curCarriage.getSeats().put(seat1, generateId());
-						//System.out.println("seat is: "+seat1);
+						//seat number
 						ticketData[0]= seat1;
+						//ticket id
 						ticketData[1]= curCarriage.getSeats().get(seat1);
+						//carriage number
 						ticketData[2]= curCarriage.getNumber();
 						break;
 					}
 				}
 			}
-		System.out.println("datos antes del return "+ticketData[0]+" ::"+ticketData[1]);
 		return ticketData;	
 	}
 	public int generateId() {
