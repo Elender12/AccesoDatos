@@ -111,6 +111,11 @@ public class TicketsSale {
 				for (Ticket item : ticketsList) {
 					System.out.println(item.toString());
 				}
+				
+				Collections.sort(ticketsList, new CompareByTren());
+				for (Ticket item : ticketsList) {
+					System.out.println(item.toString());
+				}
 				//ask for the options
 				//show the sorted tickets
 				break;
